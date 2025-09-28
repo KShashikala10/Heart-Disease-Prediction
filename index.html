@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Heart Disease Prediction</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    width: 100vw; height: 100vh;
+    background: black url('https://user-gen-media-assets.s3.amazonaws.com/seedream_images/c8582ae9-46d1-4078-bf40-d6a74046bff5.png') no-repeat center center fixed;
+    background-size: 50% auto;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+  }
+  .form-container {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    max-height: 85vh;   /* Limit height */
+    overflow-y: auto;   /* Enable vertical scrolling */
+    padding: 25px 25px 15px 25px;
+    background: rgba(20,20,40,0.55);
+    border-radius: 14px;
+    box-shadow: 0 0 28px #00bfffbb;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: #a3ddff;
+  }
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #7acce8;
+    font-size: 22px;
+    text-shadow: 0 0 7px #3399ff;
+    font-weight: 700;
+  }
+  .input-group {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    font-weight: 600;
+    color: #c7eaff;
+    margin-bottom: 2px;
+  }
+  input {
+    height: 28px;
+    padding: 4px 8px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 7px #0099ff99;
+    background: rgba(24, 30, 45, 0.65);
+    color: #dff8ff;
+    outline: none;
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+  }
+  input:focus {
+    box-shadow: 0 0 15px #00d8ff;
+    border: 2px solid #00bbff;
+    background: rgba(30, 40, 60, 0.85);
+  }
+  .submit-btn {
+    margin-top: 14px;
+    padding: 11px 0;
+    font-size: 17px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    background: linear-gradient(to right, #29abe2, #1e81b0);
+    color: #f5faff;
+    box-shadow: 0 0 12px #1fc0ff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .submit-btn:hover {
+    background: linear-gradient(to right, #6ecfff, #1c6ca6);
+  }
+  #predictionResult {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffaa00;
+    text-align: center;
+    text-shadow: 0 0 4px #ffbb33;
+  }
+</style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="form-container">
+    <h2>Heart Disease Prediction</h2>
+    <form id="heartForm">
+      <div class="input-group"><label>Age</label><input type="number" name="age" required/></div>
+      <div class="input-group"><label>Sex (0=female 1=male)</label><input type="number" name="sex" min="0" max="1" required/></div>
+      <div class="input-group"><label>ChestPainType</label><input type="text" name="cp" required/></div>
+      <div class="input-group"><label>RestingBP</label><input type="number" name="trestbps" required/></div>
+      <div class="input-group"><label>Cholesterol</label><input type="number" name="chol" required/></div>
+      <div class="input-group"><label>FastingBS</label><input type="number" name="fbs" required/></div>
+      <div class="input-group"><label>RestingECG</label><input type="text" name="restecg" required/></div>
+      <div class="input-group"><label>MaxHR</label><input type="number" name="thalach" required/></div>
+      <div class="input-group"><label>ExerciseAngina</label><input type="text" name="exang" required/></div>
+      <div class="input-group"><label>Oldpeak</label><input type="number" step="0.1" name="oldpeak" required/></div>
+      <div class="input-group"><label>ST_Slope</label><input type="text" name="slope" required/></div>
+      <button class="submit-btn" type="submit">Submit</button>
+    </form>
+    <div id="predictionResult"></div>
+  </div>
+  <script>
+    const form = document.getElementById('heartForm');
+    const resultDiv = document.getElementById('predictionResult');
+
+    form.onsubmit = function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const age = Number(formData.get('age'));
+      const sex = Number(formData.get('sex'));
+      const chol = Number(formData.get('chol'));
+
+      let resultText = "Result: ";
+      if (age > 50 || chol > 200) {
+        resultText += "The patient may have heart disease. Please consult a doctor.";
+      } else {
+        resultText += "The patient is at low risk of heart disease.";
+      }
+
+      resultDiv.textContent = resultText;
+    };
+  </script>
+</body>
+</html>
