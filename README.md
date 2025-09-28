@@ -34,6 +34,7 @@ The system uses a trained model on the **Heart Disease dataset** and provides a 
 ├── heart_disease.csv        # Dataset
 ├── heartdisease.ipynb       # Jupyter Notebook (Model Training & Analysis)
 ├── index.html               # Frontend (User Interface)
+├── screenshots              # outputs
 └── README.md                # Project Documentation
 ```
 
